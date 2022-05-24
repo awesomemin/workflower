@@ -1,0 +1,23 @@
+{
+  "name": "workflower",
+  "version": "0.0.0",
+  "description": "working process recoder required by HW",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awesomemin/workflower.git"
+  },
+  "author": "sungmin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/awesomemin/workflower/issues"
+  },
+  "homepage": "https://github.com/awesomemin/workflower#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16"
+  }
+}
