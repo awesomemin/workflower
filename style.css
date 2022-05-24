@@ -1,0 +1,48 @@
+#title {
+  text-align: center;
+}
+
+#mainBox {
+  border: 1px solid black;
+}
+
+#dateDisplayBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+#mainTable {
+  width: 100%;
+}
+
+.tableInput {
+  text-align: center;
+  width: 100%;
+  border: none;
+}
+
+.tableProcessInput {
+  width: calc(100% - 23px);
+  border: none;
+  font-weight: 700;
+}
+
+input:focus {
+  outline: none;
+}
+
+textarea {
+  resize: none;
+}
+
+textarea:focus {
+  outline: none;
+}
