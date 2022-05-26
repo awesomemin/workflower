@@ -11,9 +11,9 @@
   </div>
   <div id="mainBox">
     <div id="dateDisplayBar">
-      <div>왼쪽 화살표</div>
-      <div id="dateDisplay">날짜</div>
-      <div>오른쪽 화살표</div>
+      <div id="previousDateArrow">왼쪽 화살표</div>
+      <div id="dateDisplay">0월 0일</div>
+      <div id="nextDateArrow">오른쪽 화살표</div>
     </div>
     <table id="mainTable">
       <thead>
@@ -28,6 +28,20 @@
       <tbody id="tbody">
       </tbody>
     </table>
+  </div>
+  <div id="dateChangeModal" class="modal-overlay">
+    <div class="modal-window">
+      <div class="title">
+        <h2>날짜 변경</h2>
+      </div>
+      <div class="close-area">X</div>
+      <div class="content">
+        <form id="dateChangeForm">
+          <input type="date">
+          <button>제출</button>
+        </form>
+      </div>
+    </div>
   </div>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="./main.js"></script>
