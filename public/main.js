@@ -106,7 +106,24 @@ const addStep = (e) => {
   }
 }
 
+const saveContents = () => {
+  const tbody = document.querySelector("#tbody");
+  console.dir(tbody);
+  for(i = 0; i < 24; i++) {
+    const data = {
+      keyword: tbody.children[i].children[1].children[0].value,
+      category: tbody.children[i].children[2].children[0].value,
+      situation: tbody.children[i].children[3].children[0].value,
+      process: "temp",
+      date: currentDate.getFullYear() + "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getDate(),
+      time: i,
+    }
+    console.log(data.date);
+  }
+}
+
 dateDisplay.addEventListener('click', showChangeDateModal);
 dateChangeModalCloseButton.addEventListener("click", hideChangeDateModal);
 updateDisplayedDate();
 createTable();
+setTimeout(saveContents, 10000);

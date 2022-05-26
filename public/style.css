@@ -116,3 +116,12 @@ textarea:focus {
   text-shadow: 1px 1px 2px gray;
   color: white;
 }
+
+.arrow {
+  padding-bottom: 8px;
+  font-size: 40;
+}
+
+.arrow:hover {
+  color: gray;
+}

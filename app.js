@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const Main = require('./models/main');
 
 const { sequelize } = require('./models');
 
@@ -18,6 +19,32 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
+})
+
+app.post('/save', async (req, res) => {
+  await Main.findOne({where: {
+    date: req.body.date,
+    time: req.body.time,
+  }})
+  .then((obj) => {
+    if(obj) {
+      obj.update({
+        keyword: req.body.keyword,
+        category: req.body.category,
+        situation: req.body.situation,
+        process: req.body.process,
+      });
+    } else {
+      Main.create({
+        keyword: req.body.keyword,
+        category: req.body.category,
+        situation: req.body.situation,
+        process: req.body.process,
+        date: req.body.date,
+        time: req.body.time,
+      });
+    }
+  })
 })
 
 app.listen(app.get('port'), () => {
