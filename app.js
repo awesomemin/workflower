@@ -23,8 +23,16 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 })
 
+app.get('/data', async (req, res) => {
+  await Main.findAll({where: {
+    date: req.query.date,
+  }})
+  .then((data) => {
+    res.json(data);
+  })
+})
+
 app.post('/save', async (req, res) => {
-  console.log(req.body);
   await Main.findOne({where: {
     date: req.body.date,
     time: req.body.time,

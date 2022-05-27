@@ -8,6 +8,7 @@ const currentDate = new Date();
 
 const updateDisplayedDate = () => {
   dateDisplay.innerText = String(currentDate.getFullYear()) + "년 " + String(currentDate.getMonth() + 1) + "월 " + String(currentDate.getDate()) + "일";
+  fillTable();
 }
 
 const showChangeDateModal = () => {
@@ -40,10 +41,39 @@ dateChangeForm.addEventListener("submit", (e) => {
   updateDisplayedDate();
 })
 
+const fillTable = async () => {
+  const data = await axios.get('/data', {
+    params: {
+      date: currentDate.getFullYear() + "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getDate(),
+    }
+  });
+  const tbody = document.querySelector("#tbody");
+  for (i = 0; i < 24; i++) {
+    tbody.children[i].children[1].children[0].value = "";
+    tbody.children[i].children[2].children[0].value = "";
+    tbody.children[i].children[3].children[0].value = "";
+    for(j = 1; j < tbody.children[i].children[4].children.length; ) {
+      tbody.children[i].children[4].children[j].remove();
+    }
+    tbody.children[i].children[4].children[0].children[1].value = "";
+
+    if(data.data.length !== 0) {
+      tbody.children[i].children[1].children[0].value = data.data[i].keyword;
+      tbody.children[i].children[2].children[0].value = data.data[i].category;
+      tbody.children[i].children[3].children[0].value = data.data[i].situation;
+      console.log(data.data[i].process.split("^$").filter(n=>n));
+      for (j = 0; j < data.data[i].process.split("^$").filter(n=>n).length; j++) {
+        
+      }
+    }
+  }
+}
+
 
 const createTable = () => {
   let hour = 8;
   let minutes = 30;
+
   const tbody = document.querySelector("#tbody");
   for (i = 0; i < 24; i++) {
     const tr = document.createElement("tr");
@@ -108,11 +138,10 @@ const addStep = (e) => {
 
 const saveContents = async () => {
   const tbody = document.querySelector("#tbody");
-  console.dir(tbody);
   for(i = 0; i < 24; i++) {
     let process = "";
     for(j = 0; j < tbody.children[i].children[4].children.length; j++) {
-      process = process + `${j+1}.` + tbody.children[i].children[4].children[j].children[1].value + " ";
+      process = process + "^$" + tbody.children[i].children[4].children[j].children[1].value;
     }
     const data = {
       keyword: tbody.children[i].children[1].children[0].value,
@@ -131,3 +160,4 @@ dateChangeModalCloseButton.addEventListener("click", hideChangeDateModal);
 updateDisplayedDate();
 createTable();
 setInterval(saveContents, 5000);
+setTimeout(fillTable, 15000);
