@@ -106,19 +106,23 @@ const addStep = (e) => {
   }
 }
 
-const saveContents = () => {
+const saveContents = async () => {
   const tbody = document.querySelector("#tbody");
   console.dir(tbody);
   for(i = 0; i < 24; i++) {
+    let process = "";
+    for(j = 0; j < tbody.children[i].children[4].children.length; j++) {
+      process = process + `${j+1}.` + tbody.children[i].children[4].children[j].children[1].value + " ";
+    }
     const data = {
       keyword: tbody.children[i].children[1].children[0].value,
       category: tbody.children[i].children[2].children[0].value,
       situation: tbody.children[i].children[3].children[0].value,
-      process: "temp",
+      process: process,
       date: currentDate.getFullYear() + "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getDate(),
       time: i,
-    }
-    console.log(data.date);
+    };
+    await axios.post('/save', data);
   }
 }
 
@@ -126,4 +130,4 @@ dateDisplay.addEventListener('click', showChangeDateModal);
 dateChangeModalCloseButton.addEventListener("click", hideChangeDateModal);
 updateDisplayedDate();
 createTable();
-setTimeout(saveContents, 10000);
+setInterval(saveContents, 5000);

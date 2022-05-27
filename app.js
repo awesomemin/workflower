@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const Main = require('./models/main');
+const bp = require('body-parser');
 
 const { sequelize } = require('./models');
 
@@ -16,12 +17,14 @@ sequelize.sync({force: false})
   });
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bp.json());
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 })
 
 app.post('/save', async (req, res) => {
+  console.log(req.body);
   await Main.findOne({where: {
     date: req.body.date,
     time: req.body.time,
@@ -44,6 +47,7 @@ app.post('/save', async (req, res) => {
         time: req.body.time,
       });
     }
+    res.send('ok');
   })
 })
 
